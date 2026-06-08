@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TODO - Modern Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  
   <div class="app-container">
     <header class="header">
-      <h1>TODO</h1>
+      <div class="header-left">
+        <button id="backBtn" class="back-btn" aria-label="Go back">←</button>
+        <h1>TO-DO</h1>
+      </div>
+      <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+      </div>
       <button class="theme-toggle" id="themeToggle" title="Switch theme">
         <span class="theme-icon">🌙</span>
       </button>
     </header>
 
-    <div class="input-section">
-      <div class="input-container">
-        <input type="text" class="todo-input" placeholder="Create a new todo..." maxlength="200">
-        <button class="add-btn" type="button">+</button>
+    <div id="home-view" class="view active-view">
+
+      <div class="input-section">
+        <div class="input-container">
+          <input type="text" class="todo-input" aria-label="Create a new todo" placeholder="Create a new todo..."
+            maxlength="200">
+          <button class="add-btn" type="button" aria-label="Add todo">+</button>
+        </div>
+        <div class="reminder-controls">
+          <input type="datetime-local" class="reminder-input" id="reminderInput">
+          <select id="repeatSelect" class="reminder-select" style="display: none;" title="Repeat Interval">
+            <option value="none">No Repeat</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+          <select id="soundSelect" class="reminder-select" style="display: none;" title="Alarm Sound">
+            <option value="beep">Beep</option>
+            <option value="chime">Chime</option>
+            <option value="buzz">Buzz</option>
+          </select>
+          <button class="reminder-btn" id="reminderBtn" title="Add reminder">⏰</button>
+        </div>
       </div>
-      <div class="reminder-controls">
-        <input type="datetime-local" class="reminder-input" id="reminderInput">
-        <button class="reminder-btn" id="reminderBtn" title="Add reminder">⏰</button>
+
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+
+      <div class="todo-list" id="todoList">
+        <div>No tasks yet. Add one above!</div>
+      </div>
+
+      <div class="stats" id="stats">
+        0 tasks left
+      </div>
+
+      <div class="drag-hint">
+        Drag and drop to reorder list
       </div>
     </div>
 
-    <div class="filter-tabs">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="active">Active</button>
-      <button class="filter-btn" data-filter="completed">Completed</button>
+    <div id="detail-view" class="view">
+      <!-- Detail content will be injected here -->
     </div>
+  </div>
 
-    <div class="todo-list" id="todoList">
-      <div>No tasks yet. Add one above!</div>
-    </div>
+  <div id="toast-container" class="toast-container"></div>
 
-    <div class="stats" id="stats">
-      0 tasks left
-    </div>
-
-    <div class="drag-hint">
-      Drag and drop to reorder list
+  <div id="alarmModal" class="alarm-modal">
+    <div class="alarm-content">
+      <h3 id="alarmTitle">Reminder</h3>
+      <p id="alarmText"></p>
+      <div class="alarm-actions">
+        <button id="snoozeBtn" class="alarm-btn snooze-btn">Snooze (5m)</button>
+        <button id="dismissBtn" class="alarm-btn dismiss-btn">Dismiss</button>
+      </div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
